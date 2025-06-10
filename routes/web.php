@@ -8,11 +8,9 @@ use App\Http\Controllers\LoginController;
 
 Route::get('/teacher/login', [TeacherAuthController::class, 'showLoginForm'])->name('teacher.login');
 Route::post('/teacher/login', [TeacherAuthController::class, 'login'])->name('teacher.login.post');
-Route::post('/teacher/logout', [TeacherAuthController::class, 'logout'])->name('teacher.logout');
 
 Route::get('/student/login', [LoginController::class, 'showLoginForm'])->name('student.login');
 Route::post('/student/login', [LoginController::class, 'login'])->name('student.login.post');
-Route::post('/student/logout', [LoginController::class, 'logout'])->name('student.logout');
 
 Route::middleware('auth:teacher')->group(function () {
     Route::resource('groups', GroupController::class);

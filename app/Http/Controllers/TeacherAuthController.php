@@ -21,7 +21,7 @@ class TeacherAuthController extends Controller
 
         if (Auth::guard('teacher')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/students');
         }
 
         return back()->withErrors([
