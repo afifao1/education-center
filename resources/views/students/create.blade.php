@@ -29,6 +29,13 @@
         <label>Phone:</label><br>
         <input type="text" name="phone" value="{{ old('phone') }}"><br><br>
 
+        <label>Group:</label><br>
+        <select name="group_id" required>
+            @foreach ($groups as $group)
+                <option value="{{ $group->id }}">{{ $group->name }}</option>
+            @endforeach
+        </select><br><br>
+
         <button type="submit">Save</button>
     </form>
 </body>

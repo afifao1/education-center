@@ -30,6 +30,15 @@
         <label>Phone:</label><br>
         <input type="text" name="phone" value="{{ old('phone', $student->phone) }}"><br><br>
 
+        <label>Group:</label><br>
+        <select name="group_id" required>
+            @foreach ($groups as $group)
+                <option value="{{ $group->id }}" {{ $student->group_id == $group->id ? 'selected' : '' }}>
+                    {{ $group->name }}
+                </option>
+            @endforeach
+        </select><br><br>
+
         <button type="submit">Update</button>
     </form>
 </body>
