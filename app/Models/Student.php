@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Student extends Authenticatable
 {
     use HasFactory;
 
@@ -13,8 +14,13 @@ class Student extends Model
         'last_name',
         'phone',
         'parent_phone',
+        'password',
         'group_id',
-        'teacher_id'
+        'teacher_id',
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 
     public function group()

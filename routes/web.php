@@ -4,14 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherAuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\GroupController;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+use App\Http\Controllers\LoginController;
 
+Route::get('/teacher/login', [TeacherAuthController::class, 'showLoginForm'])->name('teacher.login');
+Route::post('/teacher/login', [TeacherAuthController::class, 'login'])->name('teacher.login.post');
+Route::post('/teacher/logout', [TeacherAuthController::class, 'logout'])->name('teacher.logout');
 
-Route::get('/login', [TeacherAuthController::class, 'showLoginForm'])->name('teacher.login');
-Route::post('/login', [TeacherAuthController::class, 'login'])->name('teacher.login.post');
-Route::post('/logout', [TeacherAuthController::class, 'logout'])->name('teacher.logout');
+Route::get('/student/login', [LoginController::class, 'showLoginForm'])->name('student.login');
+Route::post('/student/login', [LoginController::class, 'login'])->name('student.login.post');
+Route::post('/student/logout', [LoginController::class, 'logout'])->name('student.logout');
 
 Route::middleware('auth:teacher')->group(function () {
     Route::resource('groups', GroupController::class);
@@ -21,3 +22,6 @@ Route::middleware('auth:teacher')->group(function () {
     })->name('dashboard');
 });
 
+Route::middleware('auth:student')->group(function () {
+    Route::get('/dashboard/{student}', [LoginController::class, 'dashboard'])->name('student.dashboard');
+});

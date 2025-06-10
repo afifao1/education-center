@@ -29,8 +29,11 @@
         <label>Phone:</label><br>
         <input type="text" name="phone" value="{{ old('phone') }}"><br><br>
 
-        <label>Parent's Phone:</label><br> 
+        <label>Parent's Phone:</label><br>
         <input type="text" name="parent_phone" value="{{ old('parent_phone') }}"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password"><br><br>
 
         <label>Group:</label><br>
         <select name="group_id" required>

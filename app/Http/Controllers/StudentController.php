@@ -38,6 +38,8 @@ public function store(Request $request)
         'parent_phone' => $request->parent_phone,
         'group_id' => $request->group_id,
         'teacher_id' => auth('teacher')->user()->id,
+        'password' => bcrypt($request->password),
+
     ]);
 
     return redirect()->route('students.index')->with('success', 'Student added successfully.');
