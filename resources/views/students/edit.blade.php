@@ -30,6 +30,9 @@
         <label>Phone:</label><br>
         <input type="text" name="phone" value="{{ old('phone', $student->phone) }}"><br><br>
 
+        <label>Parent Phone:</label><br>
+        <input type="text" name="parent_phone" value="{{ old('parent_phone', $student->parent_phone) }}"><br><br>
+
         <label>Group:</label><br>
         <select name="group_id" required>
             @foreach ($groups as $group)

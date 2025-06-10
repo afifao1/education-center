@@ -27,6 +27,7 @@ public function store(Request $request)
         'first_name' => 'required',
         'last_name' => 'required',
         'phone' => 'required|unique:students,phone',
+        'parent_phone' => 'required',
         'group_id' => 'required|exists:groups,id',
     ]);
 
@@ -34,6 +35,7 @@ public function store(Request $request)
         'first_name' => $request->first_name,
         'last_name' => $request->last_name,
         'phone' => $request->phone,
+        'parent_phone' => $request->parent_phone,
         'group_id' => $request->group_id,
         'teacher_id' => auth('teacher')->user()->id,
     ]);
