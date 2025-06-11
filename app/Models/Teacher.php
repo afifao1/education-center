@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Teacher extends Authenticatable
 {
     use HasFactory;
-
+    use \Laravel\Sanctum\HasApiTokens;
     protected $guard = 'teacher';
 
     protected $fillable = [
