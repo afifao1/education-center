@@ -18,7 +18,7 @@
             <div>
                 <label>Student:</label>
                 <select name="student_id" required>
-                    <option value="">Select Student</option>
+                    <option value="">Select a student</option>
                     @foreach ($students as $student)
                         <option value="{{ $student->id }}">{{ $student->first_name }} {{ $student->last_name }}</option>
                     @endforeach
@@ -32,15 +32,16 @@
 
             <div>
                 <label>Status:</label>
-                <select name="is_present" required>
-                    <option value="1">Present</option>
-                    <option value="0">Absent</option>
+                <select name="status" required>
+                    <option value="present">Present</option>
+                    <option value="late">Late</option>
+                    <option value="absent">Absent</option>
                 </select>
             </div>
 
             <div>
-                <label>Late Minutes (if late):</label>
-                <input type="number" name="late_minutes" min="0" placeholder="Enter minutes if late">
+                <label>Late Minutes (if Late):</label>
+                <input type="number" name="late_minutes" placeholder="Enter late minutes">
             </div>
 
             <button type="submit">Save</button>

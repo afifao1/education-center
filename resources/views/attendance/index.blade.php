@@ -10,7 +10,7 @@
             </div>
         @endif
 
-        <a href="{{ route('attendances.create') }}">Add New Attendance</a>
+        <a href="{{ route('attendances.create') }}" style="display: inline-block; margin-bottom: 15px;">Add New Attendance</a>
 
         <table border="1" cellpadding="10" cellspacing="0">
             <thead>
@@ -26,9 +26,21 @@
                     <tr>
                         <td>{{ $attendance->student->first_name }} {{ $attendance->student->last_name }}</td>
                         <td>{{ $attendance->date }}</td>
-                        <td>{{ ucfirst($attendance->status) }}</td>
                         <td>
-                            {{ $attendance->status === 'late' ? ($attendance->late_minutes . ' min') : '-' }}
+                            @if ($attendance->status === 'present')
+                                Present
+                            @elseif ($attendance->status === 'late')
+                                Late
+                            @else
+                                Absent
+                            @endif
+                        </td>
+                        <td>
+                            @if ($attendance->status === 'late')
+                                {{ $attendance->late_minutes }} min
+                            @else
+                                -
+                            @endif
                         </td>
                     </tr>
                 @empty
