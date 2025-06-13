@@ -13,9 +13,11 @@ class StudentController extends Controller
 
     public function index()
     {
-        $students = Student::with('group')->get();
-        return response()->json($students);
+        $students = Student::with('group', 'latestAttendance')->get();
+
+        return view('students.index', compact('students'));
     }
+
 
     public function store(Request $request)
     {
@@ -27,9 +29,9 @@ class StudentController extends Controller
             'group_id'     => 'required|exists:groups,id',
             'password'     => 'required'
         ]);
-    
+
         $teacher = Auth::user();
-    
+
         $student = Student::create([
             'first_name'   => $request->first_name,
             'last_name'    => $request->last_name,
@@ -39,7 +41,7 @@ class StudentController extends Controller
             'teacher_id'   => $teacher->id,
             'password'     => bcrypt($request->password),
         ]);
-    
+
         return response()->json($student, 201);
     }
 

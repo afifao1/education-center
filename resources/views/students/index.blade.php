@@ -39,7 +39,7 @@
                         <th class="px-6 py-3">Phone</th>
                         <th class="px-6 py-3">Parent Phone</th>
                         <th class="px-6 py-3">Group</th>
-                        <th class="px-6 py-3">Late Times</th> <!-- Yangi ustun -->
+                        <th class="px-6 py-3">Latest Status</th>
                         <th class="px-6 py-3">Actions</th>
                     </tr>
                 </thead>
@@ -53,17 +53,31 @@
                             <td class="px-6 py-4">{{ $student->parent_phone }}</td>
                             <td class="px-6 py-4">{{ $student->group->name ?? 'No Group' }}</td>
                             <td class="px-6 py-4">
-                                @if ($student->late_times > 0)
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-semibold">
-                                        {{ $student->late_times }} times
-                                    </span>
+                                @if ($student->latestAttendance)
+                                    @if ($student->latestAttendance->status === 'present')
+                                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                            Present
+                                        </span>
+                                    @elseif ($student->latestAttendance->status === 'late')
+                                        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                            Late
+                                        </span>
+                                    @else
+                                        <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                            Absent
+                                        </span>
+                                    @endif
                                 @else
-                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
-                                        On Time
+                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                        No Attendance
                                     </span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 flex gap-2">
+                            <td class="px-6 py-4 flex flex-wrap gap-2">
+                                <a href="{{ route('attendances.index') }}"
+                                   class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 transition">
+                                    Attendance
+                                </a>
                                 <a href="{{ route('students.edit', $student->id) }}"
                                    class="bg-yellow-400 text-white px-4 py-1 rounded hover:bg-yellow-500 transition">
                                     Edit

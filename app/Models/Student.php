@@ -37,8 +37,13 @@ class Student extends Authenticatable
     }
 
     public function attendances()
-{
-    return $this->hasMany(Attendance::class);
-}
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function latestAttendance()
+    {
+        return $this->hasOne(Attendance::class)->latestOfMany();
+    }
 
 }
