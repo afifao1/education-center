@@ -39,6 +39,7 @@
                         <th class="px-6 py-3">Phone</th>
                         <th class="px-6 py-3">Parent Phone</th>
                         <th class="px-6 py-3">Group</th>
+                        <th class="px-6 py-3">Late Times</th> <!-- Yangi ustun -->
                         <th class="px-6 py-3">Actions</th>
                     </tr>
                 </thead>
@@ -51,6 +52,17 @@
                             <td class="px-6 py-4">{{ $student->phone }}</td>
                             <td class="px-6 py-4">{{ $student->parent_phone }}</td>
                             <td class="px-6 py-4">{{ $student->group->name ?? 'No Group' }}</td>
+                            <td class="px-6 py-4">
+                                @if ($student->late_times > 0)
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                        {{ $student->late_times }} times
+                                    </span>
+                                @else
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                        On Time
+                                    </span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 flex gap-2">
                                 <a href="{{ route('students.edit', $student->id) }}"
                                    class="bg-yellow-400 text-white px-4 py-1 rounded hover:bg-yellow-500 transition">
@@ -70,7 +82,7 @@
 
                     @if($students->isEmpty())
                         <tr>
-                            <td colspan="7" class="text-center py-4 text-gray-500">
+                            <td colspan="8" class="text-center py-4 text-gray-500">
                                 No students found.
                             </td>
                         </tr>
