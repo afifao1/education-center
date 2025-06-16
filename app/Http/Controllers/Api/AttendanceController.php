@@ -65,4 +65,61 @@ class AttendanceController extends Controller
             'data' => $attendance
         ], 201);
     }
+
+    public function update(Request $request, $id)
+    {
+        $attendance = Attendance::find($id);
+
+        if (!$attendance) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Attendance not found'
+            ], 404);
+        }
+
+        $validated = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'date' => [
+                'required',
+                'date',
+                Rule::unique('attendances')->ignore($attendance->id)->where(function ($query) use ($request) {
+                    return $query->where('student_id', $request->student_id);
+                }),
+            ],
+            'status' => 'required|in:present,late,absent',
+            'late_minutes' => 'nullable|integer|min:0',
+        ]);
+
+        $attendance->update([
+            'student_id' => $validated['student_id'],
+            'date' => $validated['date'],
+            'status' => $validated['status'],
+            'late_minutes' => $validated['status'] === 'late' ? ($validated['late_minutes'] ?? 0) : null,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Attendance successfully updated!',
+            'data' => $attendance
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $attendance = Attendance::find($id);
+
+        if (!$attendance) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Attendance not found'
+            ], 404);
+        }
+
+        $attendance->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Attendance successfully deleted!'
+        ]);
+    }
 }
