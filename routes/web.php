@@ -7,6 +7,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ExaminationController;
 
 Route::get('/teacher/login', [TeacherAuthController::class, 'showLoginForm'])->name('teacher.login');
 Route::post('/teacher/login', [TeacherAuthController::class, 'login'])->name('teacher.login.post');
@@ -19,6 +20,7 @@ Route::middleware('auth:teacher')->group(function () {
     Route::resource('students', StudentController::class);
     Route::resource('attendances', AttendanceController::class);
     Route::resource('payments', PaymentController::class);
+    Route::resource('examinations', ExaminationController::class);
 
     Route::get('/dashboard', function () {
         return view('dashboard');

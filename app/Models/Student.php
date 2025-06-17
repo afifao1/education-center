@@ -45,5 +45,10 @@ class Student extends Authenticatable
     {
         return $this->hasOne(Attendance::class)->latestOfMany();
     }
+    public function examinations()
+    {
+        return $this->hasMany(Examination::class);
+    }
+
 
 }
