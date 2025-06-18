@@ -14,4 +14,9 @@ class Examination extends Model
     {
         return $this->belongsTo(Student::class);
     }
+    
+    public function submissions()
+{
+    return $this->hasMany(Submission::class);
+}
 }

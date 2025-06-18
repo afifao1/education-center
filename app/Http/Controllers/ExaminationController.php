@@ -9,10 +9,10 @@ class ExaminationController extends Controller
 {
     public function index()
     {
-        $exams = Examination::with('student')->orderBy('exam_date', 'desc')->get();
-        return view('examinations.index', compact('exams'));
-    }
+        $examinations = Examination::with(['student', 'submissions'])->get();
 
+        return view('examinations.index', compact('examinations'));
+    }
     public function create()
     {
         $students = Student::all();
@@ -56,6 +56,14 @@ class ExaminationController extends Controller
 
         return redirect()->route('examinations.index')->with('success', 'Examination successfully updated!');
     }
+    
+    public function show($id)
+    {
+        $examination = Examination::with(['student', 'submissions'])->findOrFail($id);
+
+        return view('examinations.show', compact('examination'));
+    }
+
 
     public function destroy($id)
     {
