@@ -30,6 +30,11 @@
                    class="bg-gradient-to-r from-pink-500 to-pink-700 text-white px-5 py-2 rounded-lg shadow hover:scale-105 hover:opacity-90 transition transform duration-300">
                     📤 Submissions
                 </a>
+
+                <a href="{{ route('payments.index') }}"
+                   class="bg-gradient-to-r from-yellow-500 to-yellow-700 text-white px-5 py-2 rounded-lg shadow hover:scale-105 hover:opacity-90 transition transform duration-300">
+                    💰 Payments
+                </a>
             </div>
         </div>
 
