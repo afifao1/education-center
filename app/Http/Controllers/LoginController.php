@@ -38,9 +38,18 @@ class LoginController extends Controller
         if (Auth::guard('student')->id() != $student->id) {
             return redirect()->route('student.login')->withErrors(['access' => 'Unauthorized']);
         }
-
-        return view('dashboard', compact('student'));
+    
+        $student->load([
+            'group',
+            'submissions.examination',
+            'payments'
+        ]);
+    
+        $examinations = \App\Models\Examination::all();
+    
+        return view('student.dashboard', compact('student', 'examinations'));
     }
+
 
 
     public function logout()
