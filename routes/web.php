@@ -9,6 +9,9 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ExaminationController;
 use App\Http\Controllers\SubmissionController;
+use App\Exports\ExaminationsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 Route::get('/teacher/login', [TeacherAuthController::class, 'showLoginForm'])->name('teacher.login');
 Route::post('/teacher/login', [TeacherAuthController::class, 'login'])->name('teacher.login.post');
@@ -31,6 +34,16 @@ Route::middleware('auth:teacher')->group(function () {
 
     Route::get('/submissions', [SubmissionController::class, 'index'])->name('submissions.index');
     Route::put('/submissions/{submission}', [SubmissionController::class, 'update'])->name('submissions.update');
+
+    Route::get('/examinations/export/excel', function () {
+        return Excel::download(new ExaminationsExport, 'examinations.xlsx');
+    })->name('examinations.export.excel');
+
+    Route::get('/examinations/export/pdf', function () {
+        $examinations = \App\Models\Examination::with('student')->get();
+        $pdf = Pdf::loadView('examinations.pdf', compact('examinations'));
+        return $pdf->download('examinations.pdf');
+    })->name('examinations.export.pdf');
 });
 
 Route::middleware('auth:student')->group(function () {

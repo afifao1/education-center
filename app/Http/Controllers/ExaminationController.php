@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Examination;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ExaminationController extends Controller
 {
@@ -56,7 +57,7 @@ class ExaminationController extends Controller
 
         return redirect()->route('examinations.index')->with('success', 'Examination successfully updated!');
     }
-    
+
     public function show($id)
     {
         $examination = Examination::with(['student', 'submissions'])->findOrFail($id);
@@ -71,5 +72,12 @@ class ExaminationController extends Controller
         $exam->delete();
 
         return redirect()->route('examinations.index')->with('success', 'Examination successfully deleted!');
+    }
+
+    public function exportPdf()
+    {
+        $examinations = Examination::all();
+        $pdf = Pdf::loadView('examinations.pdf', compact('examinations'));
+        return $pdf->download('examinations.pdf');
     }
 }
