@@ -38,6 +38,22 @@
             </div>
         </div>
 
+        <form method="GET" action="{{ route('students.index') }}" class="mb-8 flex flex-wrap gap-4 items-end justify-center bg-white p-6 rounded-lg shadow">
+            <div>
+                <label for="name" class="block text-gray-700 mb-1">Name</label>
+                <input type="text" name="name" id="name" value="{{ request('name') }}" placeholder="First or Last Name" class="rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2 w-48">
+            </div>
+            <div>
+                <label for="date_of_birth" class="block text-gray-700 mb-1">Date of Birth</label>
+                <input type="text" name="date_of_birth" id="date_of_birth" value="{{ request('date_of_birth') }}" placeholder="e.g. 12.04.2007" class="rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2 w-36">
+                <small class="text-gray-500">Format: dd.mm.yyyy</small>
+            </div>
+            <div>
+                <button type="submit" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg shadow hover:scale-105 hover:opacity-90 transition transform duration-300">Search</button>
+                <a href="{{ route('students.index') }}" class="ml-2 text-gray-500 hover:text-blue-700 underline">Reset</a>
+            </div>
+        </form>
+
         @if (session('success'))
             <div class="mb-6 bg-green-100 text-green-700 p-4 rounded shadow text-center text-lg">
                 {{ session('success') }}
@@ -53,6 +69,7 @@
                         <th class="px-6 py-4">Last Name</th>
                         <th class="px-6 py-4">Phone</th>
                         <th class="px-6 py-4">Parent Phone</th>
+                        <th class="px-6 py-4">Date of Birth</th>
                         <th class="px-6 py-4">Group</th>
                         <th class="px-6 py-4">Latest Status</th>
                         <th class="px-6 py-4 text-center">Actions</th>
@@ -66,6 +83,7 @@
                             <td class="px-6 py-4">{{ $student->last_name }}</td>
                             <td class="px-6 py-4">{{ $student->phone }}</td>
                             <td class="px-6 py-4">{{ $student->parent_phone }}</td>
+                            <td class="px-6 py-4">{{ $student->date_of_birth ? \Carbon\Carbon::parse($student->date_of_birth)->format('d.m.Y') : '-' }}</td>
                             <td class="px-6 py-4">{{ $student->group->name ?? 'No Group' }}</td>
                             <td class="px-6 py-4">
                                 @if ($student->latestAttendance)
@@ -113,7 +131,7 @@
 
                     @if($students->isEmpty())
                         <tr>
-                            <td colspan="8" class="text-center py-4 text-gray-500 text-lg">
+                            <td colspan="9" class="text-center py-4 text-gray-500 text-lg">
                                 No students found.
                             </td>
                         </tr>

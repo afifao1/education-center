@@ -56,6 +56,12 @@
                 </select>
             </div>
 
+            <div>
+                <label for="date_of_birth" class="block mb-1 font-medium">Date of Birth</label>
+                <input type="text" name="date_of_birth" id="date_of_birth" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g. 12.04.2007" value="{{ old('date_of_birth') }}">
+                <small class="block mb-1 font-medium">Format: dd.mm.yyyy</small>
+            </div>
+
             <div class="text-center">
                 <button type="submit" class="bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-2 rounded-lg hover:opacity-90 transition duration-300">Save Student</button>
             </div>
